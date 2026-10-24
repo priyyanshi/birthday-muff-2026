@@ -233,6 +233,10 @@ ${i}`),b(i)}function $e(n,e=!1){return Qo(Lo(n),An(),Pn(),e)}class Ko extends fe
   flex-grow: 2;
 }
 
+#page.sp-no-header > header {
+  display: none;
+}
+
 #page > header .link[data-go-back],
 #page > header .link[data-go-back]:hover {
   font-size: 1.4em;
@@ -411,6 +415,12 @@ engine.extend('2.0.0', function () {
       return '<inline-button class="link" data-go-back aria-label="Back">&larr;</inline-button>';
     }
   });
+});
+
+// No header on the title page.
+window.addEventListener('body-content-change', function () {
+  var onTitle = engine.state.get('passage.name') === engine.story.startPassage().name;
+  document.getElementById('page').classList.toggle('sp-no-header', onTitle);
 });
 
 document.addEventListener('click', function (e) {
