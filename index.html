@@ -320,6 +320,14 @@ engine.state.set('config.style.googleFont', '<link href="https://fonts.googleapi
 engine.state.set('config.style.page.font', 'Courier Prime/Courier New/Courier/monospace 16');
 engine.state.set('config.style.page.verticalAlign', 'top');
 engine.state.set('config.style.page.theme.override', 'dark');
+
+// Blue link underlines and hover highlights instead of Chapbook's default red.
+engine.state.set('config.style.dark.page.link.lineColor', 'blue-3');
+engine.state.set('config.style.dark.page.link.active.color', 'blue-3 on blue-6');
+engine.state.set('config.style.page.header.link.lineColor', 'blue-3');
+engine.state.set('config.style.page.header.link.active.lineColor', 'blue-3');
+engine.state.set('config.style.dark.page.header.link.active.color', 'blue-3 on blue-6');
+
 engine.state.set('config.header.left', '{back button}');
 engine.state.set('config.header.center', '_{story.name}_');
 engine.state.set('config.header.right', '{restart link}');
