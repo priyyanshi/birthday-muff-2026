@@ -225,6 +225,10 @@ ${i}`),b(i)}function $e(n,e=!1){return Qo(Lo(n),An(),Pn(),e)}class Ko extends fe
 }
 
 /* Header: back arrow, title, restart. Equal columns keep the title centered. */
+#page > header {
+  align-items: center;
+}
+
 #page > header > div {
   flex: 1 1 0;
 }
@@ -235,6 +239,18 @@ ${i}`),b(i)}function $e(n,e=!1){return Qo(Lo(n),An(),Pn(),e)}class Ko extends fe
 
 #page.sp-no-header > header {
   display: none;
+}
+
+/* Page-to-page navigation and restart look like buttons; links out of the story stay underlined. */
+#page passage-link.link,
+#page passage-link.link:hover,
+#page restart-link.link,
+#page restart-link.link:hover {
+  border: 1px solid var(--color-blue-3);
+  border-radius: 3px;
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  text-decoration: none;
 }
 
 #page > header .link[data-go-back],
