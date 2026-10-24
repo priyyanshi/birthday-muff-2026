@@ -224,6 +224,21 @@ ${i}`),b(i)}function $e(n,e=!1){return Qo(Lo(n),An(),Pn(),e)}class Ko extends fe
   width: 44em;
 }
 
+/* Header: back arrow, title, restart. Equal columns keep the title centered. */
+#page > header > div {
+  flex: 1 1 0;
+}
+
+#page > header > .center {
+  flex-grow: 2;
+}
+
+#page > header .link[data-go-back],
+#page > header .link[data-go-back]:hover {
+  font-size: 1.4em;
+  text-decoration: none;
+}
+
 .sp-title-page {
   display: flex;
   flex-direction: column;
@@ -301,7 +316,11 @@ engine.state.set('config.style.googleFont', '<link href="https://fonts.googleapi
 engine.state.set('config.style.page.font', 'Courier Prime/Courier New/Courier/monospace 16');
 engine.state.set('config.style.page.verticalAlign', 'top');
 engine.state.set('config.style.page.theme.override', 'dark');
-engine.state.set('config.footer.right', '{restart link}');
+engine.state.set('config.header.left', '{back button}');
+engine.state.set('config.header.center', '_{story.name}_');
+engine.state.set('config.header.right', '{restart link}');
+engine.state.set('config.footer.left', '');
+engine.state.set('config.footer.right', '');
 
 (function () {
   var ACT = /^(COLD OPEN|TEASER|TAG|THE END|(END OF )?(ACT [A-Z0-9]+|COLD OPEN|TEASER))$/;
@@ -376,6 +395,29 @@ engine.state.set('config.footer.right', '{restart link}');
     e.target.querySelectorAll(':scope > div > p').forEach(format);
   });
 })();
+
+/*
+  BACK BUTTON
+  {back button} steps back one passage each press. Chapbook's own
+  {back link} instead goes forward to the previous passage, so pressing
+  it twice bounces between two passages.
+*/
+engine.extend('2.0.0', function () {
+  engine.template.inserts.add({
+    match: /^back\s+button/i,
+    render: function () {
+      var trail = engine.state.get('trail');
+      if (!Array.isArray(trail) || trail.length < 2) return '';
+      return '<inline-button class="link" data-go-back aria-label="Back">&larr;</inline-button>';
+    }
+  });
+});
+
+document.addEventListener('click', function (e) {
+  if (!e.target.closest || !e.target.closest('[data-go-back]')) return;
+  var trail = engine.state.get('trail');
+  if (Array.isArray(trail) && trail.length > 1) engine.state.set('trail', trail.slice(0, -1));
+});
 </script><tw-passagedata pid="1" name="Title Page" tags="" position="100,100" size="100,100">&lt;div class=&quot;sp-title-page&quot;&gt;
 &lt;p class=&quot;sp-title&quot;&gt;The day is here&lt;/p&gt;
 &lt;p&gt;Written by&lt;br&gt;you know who&lt;/p&gt;
